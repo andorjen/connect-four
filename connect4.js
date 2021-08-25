@@ -11,13 +11,11 @@ const WIDTH = 7;
 const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
-const board = []; // array of rows, each row is array of cells  (board[y][x])
+let board = []; // array of rows, each row is array of cells  (board[y][x])
 
-/** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
 
-function makeColumns(WIDTH) {
+/** creates and returns an array of zeros, with a length equal to WIDTH  */
+function createSingleRow() {
   const singleRow = [];
 
   let x = WIDTH;
@@ -27,16 +25,18 @@ function makeColumns(WIDTH) {
   }
   return singleRow;
 }
-
-function makeBoard(HEIGHT, WIDTH) {
-  const createRow = makeColumns(WIDTH);
+/** makeBoard: create in-JS board structure:
+ *    board = array of rows, each row is array of cells  (board[y][x])
+ */
+function makeBoard() {
+  const createRow = createSingleRow();
 
   let x = HEIGHT;
   while (x > 0) {
     board.push(createRow);
     x--;
   }
-  return board;
+  // return board;
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -66,11 +66,11 @@ function makeHtmlBoard() {
     // TODO: Create a table row element and assign to a "row" variable
     const row = document.createElement('tr')
 
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
       const cell = document.createElement('td');
       // TODO: add an id, y-x, to the above table cell element
-      cell.setAttribute("id", y - x)
+      cell.setAttribute("id", `${y}-${x}`)
       // you'll use this later, so make sure you use y-x
       // TODO: append the table cell to the table row
       row.append(cell);
@@ -91,6 +91,11 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  let cell = document.getElementById(`${y}-${x}`);
+  let div = document.createElement("div");
+  div.classList.add("piece");
+  div.classList.add("p1")
+  cell.append(div);
 }
 
 /** endGame: announce game end */
