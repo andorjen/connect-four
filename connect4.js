@@ -17,10 +17,10 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
-function makeColumns (WIDTH) {
+function makeColumns(WIDTH) {
   const singleRow = [];
 
-  let x = WIDTH; 
+  let x = WIDTH;
   while (x > 0) {
     singleRow.push(0);
     x--;
@@ -29,9 +29,9 @@ function makeColumns (WIDTH) {
 }
 
 function makeBoard(HEIGHT, WIDTH) {
-  const createRow = makeColumns(WIDTH); 
+  const createRow = makeColumns(WIDTH);
 
-  let x = HEIGHT; 
+  let x = HEIGHT;
   while (x > 0) {
     board.push(createRow);
     x--;
@@ -44,36 +44,39 @@ function makeBoard(HEIGHT, WIDTH) {
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 
+  const htmlBoard = document.querySelector("#board");
   // TODO: add comment for this code
-  var top = document.createElement("tr");
+  //create top row for gameboard, and add event listener to top row handling clicks
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
   // TODO: add comment for this code
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  //create cells based on WIDTH and append cells to row
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
   htmlBoard.append(top);
-
   // dynamically creates the main part of html board
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
+    const row = document.createElement('tr')
 
     for (var x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
-
+      const cell = document.createElement('td');
       // TODO: add an id, y-x, to the above table cell element
+      cell.setAttribute("id", y - x)
       // you'll use this later, so make sure you use y-x
-
       // TODO: append the table cell to the table row
-
+      row.append(cell);
     }
     // TODO: append the row to the html board
-
+    htmlBoard.append(row);
   }
 }
 
