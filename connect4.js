@@ -29,11 +29,9 @@ function createSingleRow() {
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 function makeBoard() {
-  const createRow = createSingleRow();
-
   let x = HEIGHT;
   while (x > 0) {
-    board.push(createRow);
+    board.push(createSingleRow());
     x--;
   }
   // return board;
@@ -83,8 +81,16 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
+
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let i = board.length-1; i >= 0; i--) {
+    console.log("board[i][x] is ", board[i][x])
+
+    if(board[i][x] === 0){
+      return i;
+    } 
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
